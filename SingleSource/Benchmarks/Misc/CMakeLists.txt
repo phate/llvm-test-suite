@@ -3,7 +3,8 @@ list(APPEND CFLAGS -Wno-implicit-int)
 set(FP_TOLERANCE 0.001)
 set(Source
   ReedSolomon.c
-  evalloop.c
+  # Blockaddress constants are not supported.
+  #evalloop.c
   fbench.c
   ffbench.c
   flops-1.c

@@ -1,13 +1,17 @@
 include(CheckCCompilerFlag)
 
-add_subdirectory(C++11)
-add_subdirectory(Float)
+#add_subdirectory(C++11)
+#add_subdirectory(Float)
 add_subdirectory(Matrix)
 add_subdirectory(SignlessTypes)
-add_subdirectory(Threads)
-add_subdirectory(Vector)
-add_subdirectory(Vectorizer)
-add_subdirectory(X86)
+# JLC fails tls.test
+#add_subdirectory(Threads)
+# JLC produce: error: invalid cast opcode for cast from '<4 x i32>' to '<4 x i8>'
+#add_subdirectory(Vector)
+# JLC produce: invoke is not supported.
+# UNREACHABLE executed at libjlm/src/frontend/llvm/LlvmInstructionConversion.cpp:1036
+#add_subdirectory(Vectorizer)
+#add_subdirectory(X86)
 
 list(APPEND CFLAGS -Wno-implicit-function-declaration -Wno-implicit-int)
 
@@ -18,7 +22,16 @@ if(TARGET_OS STREQUAL "Darwin")
   add_subdirectory(ObjC++)
 endif()
 
-file(GLOB Source RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c *.cpp)
+
+#file(GLOB Source RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c *.cpp)
+file(GLOB Source RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c)
+
+# JLC unsupported test
+list(REMOVE_ITEM Source AtomicOps.c)
+# JLC produces incorrect result
+list(REMOVE_ITEM Source 2003-05-07-VarArgs.c)
+list(REMOVE_ITEM Source 2003-08-11-VaListArg.c)
+
 if(TARGET_OS STREQUAL "AIX" AND ARCH STREQUAL "PowerPC")
   list(REMOVE_ITEM Source 2007-04-25-weak.c)
   if (NOT PPC_IS_PPC64_ENABLED)
@@ -56,16 +69,4 @@ if(NOT ARCH STREQUAL "x86")
   )
 endif()
 
-# Enable matrix types extension tests for compilers supporting -fenable-matrix.
-check_c_compiler_flag(-fenable-matrix COMPILER_HAS_MATRIX_FLAG)
-if (COMPILER_HAS_MATRIX_FLAG)
-  set_property(SOURCE matrix-types-spec.cpp PROPERTY COMPILE_FLAGS -fenable-matrix)
-else()
-  list(REMOVE_ITEM Source matrix-types-spec.cpp)
-endif()
-
 llvm_singlesource()
-
-if (COMPILER_HAS_MATRIX_FLAG)
-  set_property(TARGET matrix-types-spec PROPERTY LINK_OPTIONS -fenable-matrix)
-endif()

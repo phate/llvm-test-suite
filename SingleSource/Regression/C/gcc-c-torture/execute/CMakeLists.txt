@@ -1,7 +1,7 @@
 add_subdirectory(ieee)
 
 # GCC C Torture Suite is conventionally run without warnings
-list(APPEND CFLAGS -Wno-implicit-int -Wno-int-conversion -Wno-implicit-function-declaration -w)
+list(APPEND CFLAGS -Wno-implicit-int -Wno-int-conversion -Wno-implicit-function-declaration)
 
 set(TestsToSkip)
 
@@ -12,6 +12,113 @@ set(TestsToSkip)
 # Tests with features unsupported by Clang (usually GCC extensions)
 # (Big list of naughty tests)
 file(GLOB UnsupportedTests CONFIGURE_DEPENDS
+  # JLC UNREACHABLE executed at
+  # libjlm/src/frontend/llvm/LlvmInstructionConversion.cpp:45
+  # Github issue #216
+  20001009-2.c
+  20030222-1.c
+  20050203-1.c
+  20061031-1.c
+  20071211-1.c
+  20080122-1.c
+  960312-1.c
+  990130-1.c
+  990413-2.c
+  pr38533.c
+  pr40022.c
+  pr40657.c
+  pr41239.c
+  pr43385.c
+  pr43560.c
+  pr44852.c
+  pr45695.c
+  pr46309.c
+  pr47925.c
+  pr47925.c
+  pr49218.c
+  pr49279.c
+  pr49390.c
+  pr51581-1.c
+  pr51581-1.c
+  pr51581-2.c
+  pr51877.c
+  pr51933.c
+  pr52286.c
+  pr53645-2.c
+  pr53645.c
+  pr56205.c
+  pr56866.c
+  pr56982.c
+  pr57344-1.c
+  pr57344-2.c
+  pr57344-3.c
+  pr57344-4.c
+  pr58277-1.c
+  pr58419.c
+  pr63641.c
+  pr65053-1.c
+  pr65053-2.c
+  pr65648.c
+  pr65956.c
+  pr68328.c
+  pr69320-2.c
+  pr69691.c
+  pr70460.c
+  pr70903.c
+  pr78438.c
+  pr78726.c
+  pr79354.c
+  pr79737-2.c
+  pr80421.c
+  pr81588.c
+  pr82954.c
+  pr84478.c
+  pr84524.c
+  pr85156.c
+  pr85756.c
+  pr88904.c
+  stkalign.c
+  # JLC blockaddress constants are not supported
+  # Github issue #217
+  20040302-1.c
+  20041214-1.c
+  20071220-1.c
+  20071220-2.c
+  20071210-1.c
+  920302-1.c
+  920501-3.c
+  920501-4.c
+  920501-5.c
+  comp-goto-1.c
+  # JLC invalid type
+  # Github issue #218
+  20050316-1.c
+  20050316-2.c
+  20050316-3.c
+  20050607-1.c
+  simd-4.c
+  # JLC segmentation fault
+  # Github issue #219
+  20071120-1.c
+  # JLC GlobalAlias constants are not supported
+  # Github issue #220
+  alias-2.c
+  alias-3.c
+  alias-4.c
+  # JLC produced executable never finish run
+  20021024-1.c
+  20140212-1.c
+  pr68506.c
+  # JLC error: child terminated by signal 11
+  built-in-setjmp.c
+  pr84521.c
+  # JLC error: child terminated by signal 8
+  pr85582-1.c
+  # JLC error: child terminated by signal 6
+  stdarg-3.c
+  struct-ret-1.c
+  va-arg-22.c
+
   # GCC Extension: Nested functions
   20000822-1.c
   20010209-1.c

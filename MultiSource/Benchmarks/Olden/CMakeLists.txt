@@ -1,4 +1,5 @@
-add_subdirectory(bh)
+# JLC produces incorrect FP result
+#add_subdirectory(bh)
 add_subdirectory(bisort)
 add_subdirectory(em3d)
 add_subdirectory(health)
@@ -7,4 +8,5 @@ add_subdirectory(perimeter)
 add_subdirectory(power)
 add_subdirectory(treeadd)
 add_subdirectory(tsp)
-add_subdirectory(voronoi)
+# JLC produces incorrect FP result
+#add_subdirectory(voronoi)

@@ -182,5 +182,6 @@ endif()
 # (https://github.com/madler/zlib/pull/895)
 # Disable the compiler extension to workaround the build failure until a zlib
 # source update with the fix.
-target_compile_options(clamscan PRIVATE -fno-define-target-os-macros)
+# JLC does not have such a compiler extension, so the workaround is not needed
+#-target_compile_options(clamscan PRIVATE -fno-define-target-os-macros)
 llvm_test_data(clamscan ${INPUT} dbdir)
