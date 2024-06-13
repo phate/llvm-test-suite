@@ -1,2 +1,3 @@
 add_subdirectory(ldecod)
-add_subdirectory(lencod)
+# JLC produces the wrong result
+#add_subdirectory(lencod)

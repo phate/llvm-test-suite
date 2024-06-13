@@ -1,5 +1,5 @@
 # GCC C Torture Suite is conventionally run without warnings
-list(APPEND CFLAGS -Wno-implicit-int -Wno-implicit-function-declaration -w)
+list(APPEND CFLAGS -Wno-implicit-int -Wno-implicit-function-declaration)
 set(TestsToSkip)
 
 ##
@@ -10,6 +10,10 @@ set(TestsToSkip)
 # (Big list of naughty tests)
 file(GLOB UnsupportedTests
   CONFIGURE_DEPENDS
+
+  # JLC UNREACHABLE executed at
+  # libjlm/src/frontend/llvm/LlvmInstructionConversion.cpp:45
+  pr50310.c
 
   # The following all expect very specific optimiser behavior from the compiler
 

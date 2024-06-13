@@ -8,30 +8,44 @@ add_subdirectory(d)
 if(NOT ARCH STREQUAL "PowerPC")
 # This test has problems running on powerpc starting with r295538 and should
 # be restored when the issue is corrected.
-  add_subdirectory(oggenc)
+  if((NOT DEFINED JLC_WITH_ANDERSEN_AGNOSTIC) AND (NOT DEFINED STEENSGAARD_AGNOSTIC_ENABLED))
+    # JLC: Andersen with agnostic encoding runs out of memory
+    # JLC: Steensgaard with agnostic encoding runs out of memory
+    add_subdirectory(oggenc)
+  endif()
 endif()
 add_subdirectory(sgefa)
 add_subdirectory(spiff)
 add_subdirectory(viterbi)
 
-add_subdirectory(ALAC)
-add_subdirectory(hbd)
-add_subdirectory(lambda-0.1.3)
-add_subdirectory(minisat)
+# JLC: GlobalAlias constants are not supported.
+#add_subdirectory(ALAC)
+# JLC: invoke is not supported.
+#add_subdirectory(hbd)
+# C++ benchmark
+#add_subdirectory(lambda-0.1.3)
+# JLC: invoke is not supported.
+#add_subdirectory(minisat)
 if(NOT TARGET_OS STREQUAL "SunOS")
-  add_subdirectory(hexxagon)
+  # C++ benchmark
+  #add_subdirectory(hexxagon)
 endif()
 if(NOT DEFINED SMALL_PROBLEM_SIZE)
   add_subdirectory(lua)
 endif()
 if((TARGET_OS STREQUAL "Linux" OR TARGET_OS STREQUAL "Darwin") AND (NOT ARCH STREQUAL "XCore"))
-  add_subdirectory(obsequi)
+  # JLC produces the wrong result
+  #add_subdirectory(obsequi)
 endif()
 if(NOT TARGET_OS STREQUAL "SunOS")
-  add_subdirectory(kimwitu++)
+# C++ benchmark
+#  add_subdirectory(kimwitu++)
 endif()
 if(NOT TARGET_OS STREQUAL "SunOS")
-  add_subdirectory(SPASS)
+  if(NOT DEFINED JLC_WITH_ANDERSEN_AGNOSTIC)
+    # JLC: Andersen with agnostic encoding runs out of memory
+    add_subdirectory(SPASS)
+  endif()
 endif()
 if(NOT ARCH STREQUAL "XCore")
   add_subdirectory(ClamAV)
@@ -39,7 +53,11 @@ if(NOT ARCH STREQUAL "XCore")
   add_subdirectory(siod)
 endif()
 if((NOT ARCH STREQUAL "PowerPC") AND (NOT ARCH STREQUAL "XCore"))
-  add_subdirectory(sqlite3)
+  if((NOT DEFINED JLC_WITH_ANDERSEN_AGNOSTIC) AND (NOT DEFINED STEENSGAARD_AGNOSTIC_ENABLED))
+    # JLC: Andersen with agnostic encoding runs out of memory
+    # JLC: Steensgaard with agnostic encoding runs out of memory
+    add_subdirectory(sqlite3)
+  endif()
 endif()
 if(NOT TEST_SUITE_BENCHMARKING_ONLY)
   add_subdirectory(Burg)

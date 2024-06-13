@@ -5,6 +5,11 @@ if(ARCH MATCHES "x86" OR ARCH MATCHES "riscv" OR
   add_subdirectory(gcc-c-torture)
 endif()
 
+# Remove tests that doesn't work with JLC
+file(GLOB Source RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.c)
+# Blockaddress constants are not supported.
+list(REMOVE_ITEM Source 2004-03-15-IndirectGoto.c)
+
 list(APPEND LDFLAGS -lm)
 list(APPEND CFLAGS -Wno-implicit-int)
 llvm_singlesource(PREFIX "Regression-C-")
