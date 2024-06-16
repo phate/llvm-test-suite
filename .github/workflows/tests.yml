@@ -40,7 +40,7 @@ jobs:
     - name: "Cache"
       uses: actions/cache@v4
       with:
-        path: ${{ github.workspace }}/jlm/*
+        path: ${{ github.workspace }}/../jlm/*
         key: ${{ runner.os }}-${{ github.sha }}-jlm
     - name: "Run LLVM test suite"
       run: make llvm-run-opt
@@ -53,7 +53,7 @@ jobs:
     - name: "Cache"
       uses: actions/cache@v4
       with:
-        path: ${{ github.workspace }}/jlm/*
+        path: ${{ github.workspace }}/../jlm/*
         key: ${{ runner.os }}-${{ github.sha }}-jlm
     - name: "Run LLVM test suite"
       run: make llvm-run-andersen-agnostic
@@ -66,7 +66,7 @@ jobs:
     - name: "Cache"
       uses: actions/cache@v4
       with:
-        path: ${{ github.workspace }}/jlm/*
+        path: ${{ github.workspace }}/../jlm/*
         key: ${{ runner.os }}-${{ github.sha }}-jlm
     - name: "Run LLVM test suite"
       run: make llvm-run-steensgaard-agnostic
