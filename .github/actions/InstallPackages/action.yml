@@ -16,10 +16,7 @@ runs:
   using: "composite"
   steps:
     - name: "Get LLVM apt key"
-      if: ${{inputs.install-llvm == 'true'
-        || inputs.install-clang == 'true'
-        || inputs.install-mlir == 'true'
-        || inputs.install-clang-format == 'true'}}
+      if: ${{inputs.install-llvm == 'true' || inputs.install-clang == 'true'}}
       run: |
         export HAS_LLVM_REPOSITORY=$(find /etc/apt/ -name *.list | xargs cat | grep llvm-toolchain-jammy-16)
         if [[ -z $HAS_LLVM_REPOSITORY ]]; then
