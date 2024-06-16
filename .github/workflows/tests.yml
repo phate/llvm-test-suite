@@ -8,6 +8,7 @@ jobs:
   InstallPackages:
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
       - name: "Install packages"
         uses: ./.github/actions/InstallPackages
         with:
