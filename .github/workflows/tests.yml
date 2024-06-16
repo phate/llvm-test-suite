@@ -24,12 +24,12 @@ jobs:
       id: cache-build
       uses: actions/cache@v4
       with:
-        path: ${{ github.workspace }}/jlm/*
+        path: ${{ github.workspace }}/../jlm/*
         key: ${{ runner.os }}-${{ github.sha }}-jlm
     - name: "Build jlm"
       uses: ./.github/actions/BuildJlm
       with:
-        jlm-root-dir: ${{github.workspace}}/jlm
+        jlm-root-dir: ${{github.workspace}}/../jlm
         cxx: clang++-16
 
   llvm-test-suite:
