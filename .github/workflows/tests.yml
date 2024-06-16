@@ -1,0 +1,71 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  InstallPackages:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: "Install packages"
+        uses: ./.github/actions/InstallPackages
+        with:
+          install-llvm: true
+          install-clang: true
+
+  BuildJlm:
+    runs-on: ubuntu-22.04
+    needs: InstallPackages
+    steps:
+    - uses: actions/checkout@v4
+    - name: "Build cache"
+      id: cache-build
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/jlm/*
+        key: ${{ runner.os }}-${{ github.sha }}-jlm
+    - name: "Build jlm"
+      uses: ./.github/actions/BuildJlm
+      with:
+        jlm-root-dir: ${{github.workspace}}/jlm
+        cxx: clang++-16
+
+  llvm-test-suite:
+    runs-on: ubuntu-22.04
+    needs: BuildJlm
+    steps:
+    - uses: actions/checkout@v4
+    - name: "Cache"
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/jlm/*
+        key: ${{ runner.os }}-${{ github.sha }}-jlm
+    - name: "Run LLVM test suite"
+      run: make llvm-run-opt
+
+  llvm-test-suite-andersen-agnostic:
+    runs-on: ubuntu-22.04
+    needs: BuildJlm
+    steps:
+    - uses: actions/checkout@v4
+    - name: "Cache"
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/jlm/*
+        key: ${{ runner.os }}-${{ github.sha }}-jlm
+    - name: "Run LLVM test suite"
+      run: make llvm-run-andersen-agnostic
+
+  llvm-test-suite-steensgaard-agnostic:
+    runs-on: ubuntu-22.04
+    needs: BuildJlm
+    steps:
+    - uses: actions/checkout@v4
+    - name: "Cache"
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/jlm/*
+        key: ${{ runner.os }}-${{ github.sha }}-jlm
+    - name: "Run LLVM test suite"
+      run: make llvm-run-steensgaard-agnostic
