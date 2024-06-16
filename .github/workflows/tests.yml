@@ -8,12 +8,22 @@ jobs:
   InstallPackages:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
-      - name: "Install packages"
-        uses: ./.github/actions/InstallPackages
-        with:
-          install-llvm: true
-          install-clang: true
+      - name: "Get LLVM apt key"
+        run: |
+          export HAS_LLVM_REPOSITORY=$(find /etc/apt/ -name *.list | xargs cat | grep llvm-toolchain-jammy-16)
+          if [[ -z $HAS_LLVM_REPOSITORY ]]; then
+            wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
+            sudo add-apt-repository --no-update deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main
+          fi
+      - name: "Update apt sources"
+        run: sudo apt-get update
+      - name: "Install LLVM package"
+        run: |
+          sudo apt-get install llvm-16-dev
+          pip install "lit~=16.0"
+          pip show lit
+      - name: "Install clang package"
+        run: sudo apt-get install clang-16
 
   BuildJlm:
     runs-on: ubuntu-22.04
