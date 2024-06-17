@@ -17,7 +17,6 @@ jobs:
     - name: "Build jlm"
       uses: ./.github/actions/BuildJlm
       with:
-        jlm-root-dir: ${{github.workspace}}/../jlm
         cxx: clang++-16
     - name: "Run LLVM test suite"
       run: make llvm-run-opt
@@ -34,7 +33,6 @@ jobs:
     - name: "Build jlm"
       uses: ./.github/actions/BuildJlm
       with:
-        jlm-root-dir: ${{github.workspace}}/../jlm
         cxx: clang++-16
     - name: "Run LLVM test suite"
       run: make llvm-run-andersen-agnostic
@@ -51,7 +49,6 @@ jobs:
     - name: "Build jlm"
       uses: ./.github/actions/BuildJlm
       with:
-        jlm-root-dir: ${{github.workspace}}/../jlm
         cxx: clang++-16
     - name: "Run LLVM test suite"
       run: make llvm-run-steensgaard-agnostic
