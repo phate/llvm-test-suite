@@ -15,8 +15,9 @@ runs:
   steps:
     - name: "Clone jlm"
       run:
-        git clone https://github.com/phate/jlm.git ${{inputs.jlm-root-dir}}
-        && cd ${{inputs.jlm-root-dir}}
+        git clone https://github.com/phate/jlm.git ${{inputs.jlm-root-dir}} \
+        && cd ${{inputs.jlm-root-dir}} \
+        && pwd
       shell: bash
 
     - name: "Configure jlm"
