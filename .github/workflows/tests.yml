@@ -36,11 +36,16 @@ jobs:
       with:
         path: ${{ github.workspace }}/../jlm/*
         key: ${{ runner.os }}-${{ github.sha }}-jlm
-    - name: "Build jlm"
-      uses: ./.github/actions/BuildJlm
-      with:
-        jlm-root-dir: ${{github.workspace}}/../jlm
-        cxx: clang++-16
+    - name: "Clone jlm"
+      run: git clone https://github.com/phate/jlm.git ${{ github.workspace }}/../jlm/
+    - name: "Configure jlm"
+      run: ${{ github.workspace }}/../jlm/configure.sh --target release --enable-asserts CXX=${{inputs.cxx}}
+    - name: "Compile jlm"
+      run: make -C ${{ github.workspace }}/../jlm/ -j `nproc` -O all
+      shell: bash
+    - name: "Add executables to PATH"
+      run: echo '${{ github.workspace }}/../jlm/build' >> $GITHUB_PATH
+      shell: bash
 
   llvm-test-suite:
     runs-on: ubuntu-22.04
