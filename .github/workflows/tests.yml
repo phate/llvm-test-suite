@@ -21,7 +21,7 @@ jobs:
     - name: "Run LLVM test suite"
       run: |
         pwd
-        make llvm-run-opt
+        make -C jlm llvm-run-opt
 
   llvm-test-suite-andersen-agnostic:
     runs-on: ubuntu-22.04
@@ -37,7 +37,7 @@ jobs:
       with:
         cxx: clang++-16
     - name: "Run LLVM test suite"
-      run: make llvm-run-andersen-agnostic
+      run: make -C jlm llvm-run-andersen-agnostic
 
   llvm-test-suite-steensgaard-agnostic:
     runs-on: ubuntu-22.04
@@ -53,4 +53,4 @@ jobs:
       with:
         cxx: clang++-16
     - name: "Run LLVM test suite"
-      run: make llvm-run-steensgaard-agnostic
+      run: make -C jlm llvm-run-steensgaard-agnostic
