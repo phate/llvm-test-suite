@@ -29,7 +29,6 @@ jobs:
     runs-on: ubuntu-22.04
     needs: InstallPackages
     steps:
-    - uses: actions/checkout@v4
     - name: "Build cache"
       id: cache-build
       uses: actions/cache@v4
