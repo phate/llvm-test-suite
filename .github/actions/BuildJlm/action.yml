@@ -15,10 +15,8 @@ runs:
 
     - name: "Configure jlm"
       run: |
-        cwd=$(pwd) && \
         cd /tmp/jlm && \
-        ./configure.sh --target release --enable-asserts CXX=${{inputs.cxx}} && \
-        cd ${cwd}
+        ./configure.sh --target release --enable-asserts CXX=${{inputs.cxx}}
       shell: bash
 
     - name: "Compile jlm"
