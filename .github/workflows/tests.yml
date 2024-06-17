@@ -5,82 +5,53 @@ on:
     branches: [ jlm-with-llvm-16 ]
 
 jobs:
-  InstallPackages:
-    runs-on: ubuntu-22.04
-    steps:
-      - name: "Get LLVM apt key"
-        run: |
-          export HAS_LLVM_REPOSITORY=$(find /etc/apt/ -name *.list | xargs cat | grep llvm-toolchain-jammy-16)
-          if [[ -z $HAS_LLVM_REPOSITORY ]]; then
-            wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
-            sudo add-apt-repository --no-update deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main
-          fi
-      - name: "Update apt sources"
-        run: sudo apt-get update
-      - name: "Install LLVM package"
-        run: |
-          sudo apt-get install llvm-16-dev
-          pip install "lit~=16.0"
-          pip show lit
-      - name: "Install clang package"
-        run: sudo apt-get install clang-16
-
-  BuildJlm:
-    runs-on: ubuntu-22.04
-    needs: InstallPackages
-    steps:
-    - name: "Build cache"
-      id: cache-build
-      uses: actions/cache@v4
-      with:
-        path: ${{ github.workspace }}/../jlm/*
-        key: ${{ runner.os }}-${{ github.sha }}-jlm
-    - name: "Clone jlm"
-      run: git clone https://github.com/phate/jlm.git ${{ github.workspace }}/../jlm/
-    - name: "Configure jlm"
-      run: ${{ github.workspace }}/../jlm/configure.sh --target release --enable-asserts CXX=${{inputs.cxx}}
-    - name: "Compile jlm"
-      run: make -C ${{ github.workspace }}/../jlm/ -j `nproc` -O all
-      shell: bash
-    - name: "Add executables to PATH"
-      run: echo '${{ github.workspace }}/../jlm/build' >> $GITHUB_PATH
-      shell: bash
-
   llvm-test-suite:
     runs-on: ubuntu-22.04
-    needs: BuildJlm
     steps:
     - uses: actions/checkout@v4
-    - name: "Cache"
-      uses: actions/cache@v4
+    - name: "Install packages"
+      uses: ./.github/actions/InstallPackages
       with:
-        path: ${{ github.workspace }}/../jlm/*
-        key: ${{ runner.os }}-${{ github.sha }}-jlm
+        install-llvm: true
+        install-clang: true
+    - name: "Build jlm"
+      uses: ./.github/actions/BuildJlm
+      with:
+        jlm-root-dir: ${{github.workspace}}/../jlm
+        cxx: clang++-16
     - name: "Run LLVM test suite"
       run: make llvm-run-opt
 
   llvm-test-suite-andersen-agnostic:
     runs-on: ubuntu-22.04
-    needs: BuildJlm
     steps:
     - uses: actions/checkout@v4
-    - name: "Cache"
-      uses: actions/cache@v4
+    - name: "Install packages"
+      uses: ./.github/actions/InstallPackages
       with:
-        path: ${{ github.workspace }}/../jlm/*
-        key: ${{ runner.os }}-${{ github.sha }}-jlm
+        install-llvm: true
+        install-clang: true
+    - name: "Build jlm"
+      uses: ./.github/actions/BuildJlm
+      with:
+        jlm-root-dir: ${{github.workspace}}/../jlm
+        cxx: clang++-16
     - name: "Run LLVM test suite"
       run: make llvm-run-andersen-agnostic
 
   llvm-test-suite-steensgaard-agnostic:
     runs-on: ubuntu-22.04
-    needs: BuildJlm
     steps:
     - uses: actions/checkout@v4
-    - name: "Cache"
-      uses: actions/cache@v4
+    - name: "Install packages"
+      uses: ./.github/actions/InstallPackages
       with:
-        path: ${{ github.workspace }}/../jlm/*
-        key: ${{ runner.os }}-${{ github.sha }}-jlm
+        install-llvm: true
+        install-clang: true
+    - name: "Build jlm"
+      uses: ./.github/actions/BuildJlm
+      with:
+        jlm-root-dir: ${{github.workspace}}/../jlm
+        cxx: clang++-16
     - name: "Run LLVM test suite"
       run: make llvm-run-steensgaard-agnostic
