@@ -20,8 +20,8 @@ runs:
 
     - name: "Configure jlm"
       run:
-        cd ${{inputs.jlm-root-dir}} \
-        && ./configure.sh --target release --enable-asserts CXX=${{inputs.cxx}}
+        cd ${{inputs.jlm-root-dir}} && \
+        ./configure.sh --target release --enable-asserts CXX=${{inputs.cxx}}
       shell: bash
 
     - name: "Compile jlm"
