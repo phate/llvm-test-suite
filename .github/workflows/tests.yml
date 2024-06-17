@@ -19,7 +19,9 @@ jobs:
       with:
         cxx: clang++-16
     - name: "Run LLVM test suite"
-      run: make llvm-run-opt
+      run: |
+        pwd
+        make llvm-run-opt
 
   llvm-test-suite-andersen-agnostic:
     runs-on: ubuntu-22.04
