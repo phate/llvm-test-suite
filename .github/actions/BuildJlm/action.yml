@@ -15,13 +15,13 @@ runs:
   steps:
     - name: "Clone jlm"
       run:
-        git clone https://github.com/phate/jlm.git ${{inputs.jlm-root-dir}} \
-        && cd ${{inputs.jlm-root-dir}} \
-        && pwd
+        git clone https://github.com/phate/jlm.git ${{inputs.jlm-root-dir}}
       shell: bash
 
     - name: "Configure jlm"
-      run: ./configure.sh --target release --enable-asserts CXX=${{inputs.cxx}}
+      run:
+        cd ${{inputs.jlm-root-dir}} \
+        && ./configure.sh --target release --enable-asserts CXX=${{inputs.cxx}}
       shell: bash
 
     - name: "Compile jlm"
