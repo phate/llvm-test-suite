@@ -7,7 +7,7 @@ on:
 jobs:
   llvm-test-suite:
     runs-on: ubuntu-22.04
-    if: !contains(github.event.pull_request.title, '[DisableCI]')
+    if: contains(github.event.pull_request.title, '[DisableCI]') == false
     steps:
     - uses: actions/checkout@v4
     - name: "Install packages"
@@ -22,7 +22,7 @@ jobs:
 
   llvm-test-suite-andersen-agnostic:
     runs-on: ubuntu-22.04
-    if: !contains(github.event.pull_request.title, '[DisableCI]')
+    if: contains(github.event.pull_request.title, '[DisableCI]') == false
     steps:
     - uses: actions/checkout@v4
     - name: "Install packages"
