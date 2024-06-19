@@ -1,22 +1,10 @@
 name: "Install packages"
 description: "Installs packages that the llvm-test-suite depends on."
 
-inputs:
-  install-llvm:
-    description: "Install LLVM package. Default is 'false'."
-    default: "false"
-    required: false
-
-  install-clang:
-    description: "Install clang package. Default is 'false'."
-    default: "false"
-    required: false
-
 runs:
   using: "composite"
   steps:
     - name: "Get LLVM apt key"
-      if: ${{inputs.install-llvm == 'true' || inputs.install-clang == 'true'}}
       run: |
         export HAS_LLVM_REPOSITORY=$(find /etc/apt/ -name *.list | xargs cat | grep llvm-toolchain-jammy-16)
         if [[ -z $HAS_LLVM_REPOSITORY ]]; then
@@ -29,15 +17,9 @@ runs:
       run: sudo apt-get update
       shell: bash
 
-    - name: "Install LLVM package"
-      if: ${{inputs.install-llvm == 'true'}}
+    - name: "Install LLVM and clang package"
       run: |
-        sudo apt-get install llvm-16-dev
+        sudo apt-get install llvm-16-dev clang-16
         pip install "lit~=16.0"
         pip show lit
-      shell: bash
-
-    - name: "Install clang package"
-      if: ${{inputs.install-clang == 'true'}}
-      run: sudo apt-get install clang-16
       shell: bash
