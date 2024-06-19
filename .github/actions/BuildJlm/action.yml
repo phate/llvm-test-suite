@@ -4,7 +4,8 @@ description: "Configures and builds jlm along with the necessary dependencies."
 inputs:
   cxx:
     description: "Set C++ compiler for compiling jlm."
-    required: true
+    default: "clang++"
+    required: false
 
   jlm-root-dir:
     description: "The directory used for cloning jlm into."

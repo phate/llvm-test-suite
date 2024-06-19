@@ -16,12 +16,8 @@ jobs:
         install-clang: true
     - name: "Build jlm"
       uses: ./.github/actions/BuildJlm
-      with:
-        cxx: clang++
     - name: "Run LLVM test suite"
-      run: |
-        pwd
-        make -C jlm llvm-run-opt
+      run: make -C jlm llvm-run-opt
 
   llvm-test-suite-andersen-agnostic:
     runs-on: ubuntu-22.04
@@ -34,8 +30,6 @@ jobs:
         install-clang: true
     - name: "Build jlm"
       uses: ./.github/actions/BuildJlm
-      with:
-        cxx: clang++
     - name: "Run LLVM test suite"
       run: make -C jlm llvm-run-andersen-agnostic
 
@@ -50,7 +44,5 @@ jobs:
         install-clang: true
     - name: "Build jlm"
       uses: ./.github/actions/BuildJlm
-      with:
-        cxx: clang++
     - name: "Run LLVM test suite"
       run: make -C jlm llvm-run-steensgaard-agnostic
