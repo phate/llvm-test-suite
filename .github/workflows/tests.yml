@@ -37,6 +37,7 @@ jobs:
 
   llvm-test-suite-steensgaard-agnostic:
     runs-on: ubuntu-22.04
+    if: contains(github.event.pull_request.title, '[DisableCI]') == false
     steps:
     - uses: actions/checkout@v4
     - name: "Install packages"
