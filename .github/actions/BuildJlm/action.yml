@@ -1,0 +1,34 @@
+name: "Build jlm"
+description: "Configures and builds jlm along with the necessary dependencies."
+
+inputs:
+  cxx:
+    description: "Set C++ compiler for compiling jlm."
+    default: "clang++"
+    required: false
+
+  jlm-root-dir:
+    description: "The directory used for cloning jlm into."
+    default: "/tmp/jlm"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Clone jlm"
+      run: git clone https://github.com/phate/jlm.git ${{inputs.jlm-root-dir}}
+      shell: bash
+
+    - name: "Configure jlm"
+      run: |
+        cd ${{inputs.jlm-root-dir}} && \
+        ./configure.sh --target release --enable-asserts CXX=${{inputs.cxx}}
+      shell: bash
+
+    - name: "Compile jlm"
+      run: make -C ${{inputs.jlm-root-dir}} -j `nproc` -O all
+      shell: bash
+
+    - name: "Add executables to PATH"
+      run: echo '${{inputs.jlm-root-dir}}/build' >> $GITHUB_PATH
+      shell: bash
