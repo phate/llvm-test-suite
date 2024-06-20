@@ -2,7 +2,6 @@ define HELP_TEXT_LLVM_TEST
 echo ""
 echo "llvm-test-suite Make Targets"
 echo "--------------------------------------------------------------------------------"
-echo "install-lit            Installs the lit tool"
 echo "llvm-build             Builds all the enabled tests"
 echo "llvm-run               Calls llvm-build and then runs built tests"
 echo "llvm-run-opt           Invokes llvm-build with optimization enabled and runs tests"
@@ -11,11 +10,6 @@ endef
 
 LLVM_TEST_GIT=$(LLVM_TEST_ROOT)/..
 LLVM_TEST_BUILD=$(LLVM_TEST_ROOT)/build
-
-
-.PHONY: install-lit
-install-lit:
-	sudo python3 /usr/lib/llvm-15/build/utils/lit/setup.py install
 
 # Use cmake with -LAH to see all configuration options
 # CXX=JLC to throw error for C++ benchmarks as these should be excluded
