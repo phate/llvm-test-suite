@@ -45,6 +45,13 @@ llvm-build-andersen-agnostic:
 		-C$(LLVM_TEST_ROOT)/cmake/AndersenAgnostic.cmake $(LLVM_TEST_GIT)
 	cd $(LLVM_TEST_BUILD)-andersen-agnostic && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
 
+.PHONY: llvm-build-andersen-region-aware
+llvm-build-andersen-region-aware:
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-andersen-region-aware \
+		-C $(LLVM_TEST_ROOT)/cmake/AndersenRegionAware.cmake $(LLVM_TEST_GIT)
+	cd $(LLVM_TEST_BUILD)-andersen-region-aware && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+
 .PHONY: llvm-build-steensgaard-agnostic
 llvm-build-steensgaard-agnostic:
 	cmake $(CMAKE_CONFIG) \
@@ -146,6 +153,10 @@ llvm-run-aa: llvm-build-aa
 .PHONY: llvm-run-andersen-agnostic
 llvm-run-andersen-agnostic: llvm-build-andersen-agnostic
 	cd $(LLVM_TEST_BUILD)-andersen-agnostic && lit -v -j `nproc` -o results.json .
+
+.PHONY: llvm-run-andersen-region-aware
+llvm-run-andersen-region-aware: llvm-build-andersen-region-aware
+	cd $(LLVM_TEST_BUILD)-steensgaard-andersen-aware && lit -v -j `nproc` -o results.json .
 
 .PHONY: llvm-run-steensgaard-agnostic
 llvm-run-steensgaard-agnostic: llvm-build-steensgaard-agnostic
