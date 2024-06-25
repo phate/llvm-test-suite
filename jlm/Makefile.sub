@@ -156,7 +156,7 @@ llvm-run-andersen-agnostic: llvm-build-andersen-agnostic
 
 .PHONY: llvm-run-andersen-region-aware
 llvm-run-andersen-region-aware: llvm-build-andersen-region-aware
-	cd $(LLVM_TEST_BUILD)-steensgaard-andersen-aware && lit -v -j `nproc` -o results.json .
+	cd $(LLVM_TEST_BUILD)-andersen-region-aware && lit -v -j `nproc` -o results.json .
 
 .PHONY: llvm-run-steensgaard-agnostic
 llvm-run-steensgaard-agnostic: llvm-build-steensgaard-agnostic
