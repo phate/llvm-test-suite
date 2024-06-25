@@ -57,7 +57,7 @@ llvm-build-steensgaard-region-aware:
 	cmake $(CMAKE_CONFIG) \
 		-B $(LLVM_TEST_BUILD)-steensgaard-region-aware \
 		-C $(LLVM_TEST_ROOT)/cmake/SteensgaardRegionAware.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-steensgaard-region-aware && make VERBOSE=1 SHELL="/bin/bash -x"
+	cd $(LLVM_TEST_BUILD)-steensgaard-region-aware && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
 
 .PHONY: llvm-build-cne
 llvm-build-cne:
