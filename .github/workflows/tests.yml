@@ -40,3 +40,15 @@ jobs:
       uses: ./.github/actions/BuildJlm
     - name: "Run LLVM test suite"
       run: make -C jlm llvm-run-steensgaard-agnostic
+
+  llvm-test-suite-steensgaard-region-aware:
+    runs-on: ubuntu-22.04
+    if: contains(github.event.pull_request.title, '[DisableCI]') == false
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Install packages"
+        uses: ./.github/actions/InstallPackages
+      - name: "Build jlm"
+        uses: ./.github/actions/BuildJlm
+      - name: "Run LLVM test suite"
+        run: make -C jlm llvm-run-steensgaard-region-aware
