@@ -2,7 +2,7 @@ name: Tests
 
 on:
   pull_request:
-    branches: [ jlm-with-llvm-17 ]
+    branches: [ jlm-with-llvm-18 ]
 
 jobs:
   llvm-test-suite:

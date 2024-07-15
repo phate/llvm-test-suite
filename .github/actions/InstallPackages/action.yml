@@ -4,7 +4,7 @@ description: "Installs packages that the llvm-test-suite depends on."
 inputs:
   llvm-version:
     description: "LLVM/ version that is installed"
-    default: "17"
+    default: "18"
     required: false
 
 runs:

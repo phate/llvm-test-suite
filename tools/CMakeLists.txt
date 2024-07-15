@@ -40,4 +40,7 @@ else()
   llvm_add_host_executable(build-timeit timeit timeit.c)
 endif()
 
-add_executable(not ${CMAKE_CURRENT_SOURCE_DIR}/not.cpp)
+# JLM
+# invoke is not supported.
+# UNREACHABLE executed at jlm/llvm/frontend/LlvmInstructionConversion.cpp:1230
+#add_executable(not ${CMAKE_CURRENT_SOURCE_DIR}/not.cpp)
