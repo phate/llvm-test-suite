@@ -24,127 +24,115 @@ CMAKE_CONFIG= \
 
 .PHONY: llvm-build
 llvm-build:
-	mkdir -p $(LLVM_TEST_BUILD)
-	cd $(LLVM_TEST_BUILD) && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/O0.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD) && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD) \
+		-C $(LLVM_TEST_ROOT)/cmake/O0.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD) --parallel `nproc`
 
 .PHONY: llvm-build-aa
 llvm-build-aa:
-	mkdir -p $(LLVM_TEST_BUILD)-aa
-	cd $(LLVM_TEST_BUILD)-aa && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/aa.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-aa && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-aa \
+		-C $(LLVM_TEST_ROOT)/cmake/aa.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-aa --parallel `nproc`
 
 .PHONY: llvm-build-andersen-agnostic
 llvm-build-andersen-agnostic:
 	cmake $(CMAKE_CONFIG) \
-		-B$(LLVM_TEST_BUILD)-andersen-agnostic \
-		-C$(LLVM_TEST_ROOT)/cmake/AndersenAgnostic.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-andersen-agnostic && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+		-B $(LLVM_TEST_BUILD)-andersen-agnostic \
+		-C $(LLVM_TEST_ROOT)/cmake/AndersenAgnostic.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-andersen-agnostic --parallel `nproc`
 
 .PHONY: llvm-build-andersen-region-aware
 llvm-build-andersen-region-aware:
 	cmake $(CMAKE_CONFIG) \
 		-B $(LLVM_TEST_BUILD)-andersen-region-aware \
 		-C $(LLVM_TEST_ROOT)/cmake/AndersenRegionAware.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-andersen-region-aware && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build  $(LLVM_TEST_BUILD)-andersen-region-aware --parallel `nproc`
 
 .PHONY: llvm-build-steensgaard-agnostic
 llvm-build-steensgaard-agnostic:
 	cmake $(CMAKE_CONFIG) \
 		-B $(LLVM_TEST_BUILD)-steensgaard-agnostic \
 		-C $(LLVM_TEST_ROOT)/cmake/SteensgaardAgnostic.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-steensgaard-agnostic && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build  $(LLVM_TEST_BUILD)-steensgaard-agnostic --parallel `nproc`
 
 .PHONY: llvm-build-steensgaard-region-aware
 llvm-build-steensgaard-region-aware:
 	cmake $(CMAKE_CONFIG) \
 		-B $(LLVM_TEST_BUILD)-steensgaard-region-aware \
 		-C $(LLVM_TEST_ROOT)/cmake/SteensgaardRegionAware.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-steensgaard-region-aware && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build  $(LLVM_TEST_BUILD)-steensgaard-region-aware --parallel `nproc`
 
 .PHONY: llvm-build-cne
 llvm-build-cne:
-	mkdir -p $(LLVM_TEST_BUILD)-cne
-	cd $(LLVM_TEST_BUILD)-cne && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/cne.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-cne && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-cne \
+		-C $(LLVM_TEST_ROOT)/cmake/cne.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-cne --parallel `nproc`
 
 .PHONY: llvm-build-dne
 llvm-build-dne:
-	mkdir -p $(LLVM_TEST_BUILD)-dne
-	cd $(LLVM_TEST_BUILD)-dne && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/dne.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-dne && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-dne \
+		-C $(LLVM_TEST_ROOT)/cmake/dne.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-dne --parallel `nproc`
 
 .PHONY: llvm-build-iln
 llvm-build-iln:
-	mkdir -p $(LLVM_TEST_BUILD)-iln
-	cd $(LLVM_TEST_BUILD)-iln && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/iln.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-iln && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-iln \
+		-C $(LLVM_TEST_ROOT)/cmake/iln.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-iln --parallel `nproc`
 
 .PHONY: llvm-build-inv
 llvm-build-inv:
-	mkdir -p $(LLVM_TEST_BUILD)-inv
-	cd $(LLVM_TEST_BUILD)-inv && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/inv.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-inv && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-inv \
+		-C $(LLVM_TEST_ROOT)/cmake/inv.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-inv --parallel `nproc`
 
 .PHONY: llvm-build-psh
 llvm-build-psh:
-	mkdir -p $(LLVM_TEST_BUILD)-psh
-	cd $(LLVM_TEST_BUILD)-psh && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/psh.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-psh && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-psh \
+		-C $(LLVM_TEST_ROOT)/cmake/psh.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-psh --parallel `nproc`
 
 .PHONY: llvm-build-pll
 llvm-build-pll:
-	mkdir -p $(LLVM_TEST_BUILD)-pll
-	cd $(LLVM_TEST_BUILD)-pll && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/pll.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-pll && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-pll \
+		-C $(LLVM_TEST_ROOT)/cmake/pll.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-pll --parallel `nproc`
 
 .PHONY: llvm-build-red
 llvm-build-red:
-	mkdir -p $(LLVM_TEST_BUILD)-red
-	cd $(LLVM_TEST_BUILD)-red && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/red.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-red && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-red \
+		-C $(LLVM_TEST_ROOT)/cmake/red.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-red --parallel `nproc`
 
 .PHONY: llvm-build-ivt
 llvm-build-ivt:
-	mkdir -p $(LLVM_TEST_BUILD)-ivt
-	cd $(LLVM_TEST_BUILD)-ivt && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/ivt.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-ivt && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-ivt \
+		-C $(LLVM_TEST_ROOT)/cmake/ivt.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-ivt --parallel `nproc`
 
 .PHONY: llvm-build-url
 llvm-build-url:
-	mkdir -p $(LLVM_TEST_BUILD)-url
-	cd $(LLVM_TEST_BUILD)-url && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/url.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-url && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-url \
+		-C $(LLVM_TEST_ROOT)/cmake/url.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-url --parallel `nproc`
 
 .PHONY: llvm-build-opt
 llvm-build-opt:
-	mkdir -p $(LLVM_TEST_BUILD)-opt
-	cd $(LLVM_TEST_BUILD)-opt && cmake \
-		$(CMAKE_CONFIG) \
-		-C$(LLVM_TEST_ROOT)/cmake/opt.cmake $(LLVM_TEST_GIT)
-	cd $(LLVM_TEST_BUILD)-opt && make -j `nproc` VERBOSE=1 SHELL="/bin/bash -x"
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-opt \
+		-C $(LLVM_TEST_ROOT)/cmake/opt.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build $(LLVM_TEST_BUILD)-opt --parallel `nproc`
 
 .PHONY: llvm-run
 llvm-run: llvm-build
