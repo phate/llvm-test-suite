@@ -50,6 +50,13 @@ llvm-build-andersen-region-aware:
 		-C $(LLVM_TEST_ROOT)/cmake/AndersenRegionAware.cmake $(LLVM_TEST_GIT)
 	VERBOSE=1 SHELL="/bin/bash -x" cmake --build  $(LLVM_TEST_BUILD)-andersen-region-aware --parallel `nproc`
 
+.PHONY: llvm-build-andersen-top-down-lifetime-aware
+llvm-build-andersen-top-down-lifetime-aware:
+	cmake $(CMAKE_CONFIG) \
+		-B $(LLVM_TEST_BUILD)-andersen-top-down-lifetime-aware \
+		-C $(LLVM_TEST_ROOT)/cmake/AndersenTopDownLifetimeAware.cmake $(LLVM_TEST_GIT)
+	VERBOSE=1 SHELL="/bin/bash -x" cmake --build  $(LLVM_TEST_BUILD)-andersen-top-down-lifetime-aware --parallel `nproc`
+
 .PHONY: llvm-build-steensgaard-agnostic
 llvm-build-steensgaard-agnostic:
 	cmake $(CMAKE_CONFIG) \
