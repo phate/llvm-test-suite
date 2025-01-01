@@ -1,4 +1,4 @@
-set(OPTFLAGS "${OPTFLAGS} -JAaAndersenTopDownLifetimeAware")
+set(OPTFLAGS "${OPTFLAGS} -JAAAndersenTopDownLifetimeAware")
 
 set(ANDERSEN_TOPDOWNLIFETIMEAWARE_ENABLED "YES" CACHE STRING "Determines whether Andersen alias analysis with top-down region-aware memory node elimination is enabled.")
 set(CMAKE_C_FLAGS_RELEASE "${OPTFLAGS}" CACHE STRING "")
