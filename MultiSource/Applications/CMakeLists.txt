@@ -8,7 +8,7 @@ add_subdirectory(d)
 if(NOT ARCH STREQUAL "PowerPC")
 # This test has problems running on powerpc starting with r295538 and should
 # be restored when the issue is corrected.
-  if((NOT DEFINED JLC_WITH_ANDERSEN_AGNOSTIC) AND (NOT DEFINED STEENSGAARD_AGNOSTIC_ENABLED) AND (NOT DEFINED ANDERSEN_REGIONAWARE_ENABLED) AND (NOT DEFINED STEENSGAARD_REGIONAWARE_ENABLED))
+  if((NOT DEFINED JLC_WITH_ANDERSEN_AGNOSTIC) AND (NOT DEFINED ANDERSEN_REGIONAWARE_ENABLED))
     # JLC: Andersen with agnostic encoding runs out of memory
     # JLC: Andersen with region-aware encoding runs out of memory
     # JLC: Steensgaard with agnostic encoding runs out of memory
@@ -56,7 +56,7 @@ if(NOT ARCH STREQUAL "XCore")
   add_subdirectory(siod)
 endif()
 if((NOT ARCH STREQUAL "PowerPC") AND (NOT ARCH STREQUAL "XCore"))
-  if((NOT DEFINED JLC_WITH_ANDERSEN_AGNOSTIC) AND (NOT DEFINED STEENSGAARD_AGNOSTIC_ENABLED) AND (NOT DEFINED ANDERSEN_REGIONAWARE_ENABLED) AND (NOT DEFINED STEENSGAARD_REGIONAWARE_ENABLED))
+  if((NOT DEFINED JLC_WITH_ANDERSEN_AGNOSTIC) AND (NOT DEFINED ANDERSEN_REGIONAWARE_ENABLED))
     # JLC: Andersen with agnostic encoding runs out of memory
     # JLC: Andersen with region-aware encoding runs out of memory
     # JLC: Steensgaard with agnostic encoding runs out of memory
