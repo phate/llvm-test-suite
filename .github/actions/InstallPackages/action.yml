@@ -29,3 +29,8 @@ runs:
         pip install "lit~=${{inputs.llvm-version}}.0"
         pip show lit
       shell: bash
+
+    - name: "Install gtest package"
+      run: |
+        sudo apt-get install libgtest-dev
+      shell: bash
