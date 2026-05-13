@@ -15,7 +15,8 @@ set(Source
   flops-6.c
   flops-7.c
   flops-8.c
-  flops.c
+  # flops uses empty for loops to estimate CPU speed, which leads to division by ~0
+  #flops.c
   fp-convert.c
   himenobmtxpa.c
   lowercase.c
