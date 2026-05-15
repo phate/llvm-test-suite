@@ -11,11 +11,14 @@ endef
 LLVM_TEST_GIT=$(LLVM_TEST_ROOT)/..
 LLVM_TEST_BUILD=$(LLVM_TEST_ROOT)/build
 
+LLVM_BINDIR:=$(shell llvm-config-18 --bindir)
+
 # Use cmake with -LAH to see all configuration options
 # CXX=JLC to throw error for C++ benchmarks as these should be excluded
 CMAKE_CONFIG= \
 	-DCMAKE_C_COMPILER=$(JLC) \
 	-DCMAKE_CXX_COMPILER=$(JLC) \
+	-DTEST_SUITE_HOST_CC="$(LLVM_BINDIR)/clang" \
 	-DTEST_SUITE_ENABLE_BITCODE_TESTS=OFF \
 	-DTEST_SUITE_COLLECT_CODE_SIZE=OFF \
 	-DTEST_SUITE_COLLECT_COMPILE_TIME=OFF \
