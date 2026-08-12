@@ -1,6 +1,6 @@
 set(OPTFLAGS "${OPTFLAGS} -JFunctionInlining -JPredicateCorrelation -JLoopUnswitching -JCommonNodeElimination -JInvariantValueRedirection -JDeadNodeElimination \
  -JAAAndersenRegionAware -JStoreValueForwarding -JNodePushOut -JCommonNodeElimination -JStoreValueForwarding -JInvariantValueRedirection -JPredicateCorrelation \
- -JLoadChainSeparation -JNodeReduction -JDeadNodeElimination -JLoopUnswitching -JCommonNodeElimination -JInvariantValueRedirection -JDeadNodeElimination \
+ -JNodeReduction -JDeadNodeElimination -JLoopUnswitching -JCommonNodeElimination -JInvariantValueRedirection -JDeadNodeElimination \
  -JNodeReduction -JCommonNodeElimination -JDeadNodeElimination -JNodePullIn -JCommonNodeElimination -JInvariantValueRedirection -JDeadNodeElimination \
  -JLoopUnrolling -JInvariantValueRedirection -JIfConversion -JCommonNodeElimination -JDeadNodeElimination")
 
